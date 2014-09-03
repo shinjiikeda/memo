@@ -1,0 +1,32 @@
+curl -XPUT 'http://localhost:9200/vertica/' -d '{
+    "index" : {
+        "analysis" : {
+            "analyzer" : {
+                "default_analyzer" : {
+                    "tokenizer" : "standard",
+                    "char_filter": ["my_mapping"],
+                    "filter" : ["standard", "my_stemmer"]
+                },
+                "exact_analyzer" : {
+                    "tokenizer" : "keyword",
+                    "char_filter": ["my_mapping"],
+                   "filter" : ["lowercase"]
+                }
+            },
+            "filter" : {
+                "my_stemmer" : {
+                    "type" : "stemmer",
+                    "name" : "minimal_english"
+                }
+            },
+
+            "char_filter" : {
+                "my_mapping" : {
+                    "type" : "mapping",
+                    "mappings_path" : "/etc/elasticsearch/mapping-jp.txt"
+                }
+            }
+
+        }
+    }
+}'
