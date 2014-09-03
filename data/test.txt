@@ -84,3 +84,38 @@ curl -XPUT 'http://localhost:9200/search/content/_mapping' -d '{
   }
 }
 '
+
+query json
+{
+  "from": offset,
+  "size": 10,
+  "query": {
+    "custom_score": {
+      "script": "_score",
+      "query": {
+        "multi_match": {
+          "query": qstr ,
+          "fields": [
+            "title^10",
+            "body",
+            "path^2",
+            "keys^3",
+          ]
+        }
+      }
+    }
+  },
+  "highlight": {
+    "pre_tags": [
+      "<b>"
+    ],
+    "post_tags": [
+      "</b>"
+    ],
+    "fields": {
+      "title": {},
+      "body": {},
+      "uri": {}
+    }
+  }
+}
