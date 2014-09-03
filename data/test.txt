@@ -94,7 +94,7 @@ query json
       "script": "_score",
       "query": {
         "multi_match": {
-          "query": qstr ,
+          "query": "test" ,
           "fields": [
             "title^10",
             "body",
@@ -119,3 +119,14 @@ query json
     }
   }
 }
+
+suggest  query
+{
+    "suggest" : {
+      "text" : "test",
+      "term" : {
+        "field" : "body"
+      }
+    }
+}
+  
