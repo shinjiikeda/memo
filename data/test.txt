@@ -30,3 +30,57 @@ curl -XPUT 'http://localhost:9200/search/' -d '{
         }
     }
 }'
+
+curl -XPUT 'http://localhost:9200/search/content/_mapping' -d '{
+  "7.1.x": {
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "title": {
+        "type" : "multi_field",
+        "fields" : {
+                "title" : {"type" : "string", "index" : "analyzed", "index_analyzer": "default_analyzer" ,"search_analyzer": "default_analyzer", "term_vector":"with_positions_offsets"},
+                "title_exact" : {"type" : "string", "index" : "analyzed", "index_analyzer": "exact_analyzer" ,"search_analyzer": "exact_analyzer"}
+        }
+      },
+      "body": {
+        "type": "string",
+        "index": "analyzed",
+        "index_analyzer": "default_analyzer",
+        "search_analyzer": "default_analyzer",
+        "term_vector":"with_positions_offsets",
+        "store": "yes"
+      },
+      "uri": {
+        "type": "string",
+        "index": "no",
+        "store": "yes"
+      },
+      "raw_uri": {
+        "type": "string",
+        "index": "not_analyzed",
+        "store": "yes"
+      },
+      "category": {
+        "type": "string",
+        "index": "no",
+        "store": "yes"
+      },
+      "keys": {
+        "type": "string",
+        "index": "analyzed",
+        "index_analyzer": "default_analyzer",
+        "search_analyzer": "default_analyzer",
+        "term_vector":"with_positions_offsets",
+        "store": "yes"
+      },
+      "links": {
+        "type": "string",
+        "index": "not_analyzed",
+        "store": "yes"
+      }
+    }
+  }
+}
+'
