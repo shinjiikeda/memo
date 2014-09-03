@@ -1,4 +1,4 @@
-curl -XPUT 'http://localhost:9200/vertica/' -d '{
+curl -XPUT 'http://localhost:9200/search/' -d '{
     "index" : {
         "analysis" : {
             "analyzer" : {
